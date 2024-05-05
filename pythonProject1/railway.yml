@@ -2,7 +2,7 @@ version: '1.0'
 services:
   app:
     startCommand: 
-      command: 'gunicorn app:app -b 0.0.0.0:$PORT'
+      command: 'gunicorn app:app'
     env:
       - PORT=3000
     plugins:
