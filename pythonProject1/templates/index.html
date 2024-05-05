@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition</title>
+</head>
+<body>
+    <h1>Face Recognition</h1>
+
+    <h2>Add a Face to the Database</h2>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="file">Upload a Photo:</label>
+        <input type="file" id="file" name="file" accept="image/*" required><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Real-Time Face Recognition</h2>
+    <div>
+        <video id="video" width="640" height="480" autoplay></video>
+    </div>
+
+    <script>
+        // JavaScript code for accessing the camera
+        const video = document.getElementById('video');
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;
+            })
+            .catch(function(err) {
+                console.error('Error accessing the camera: ', err);
+            });
+    </script>
+</body>
+</html>
