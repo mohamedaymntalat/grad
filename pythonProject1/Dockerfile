@@ -8,10 +8,6 @@ WORKDIR /app
 COPY . /app
 COPY requirements.txt .
 
-RUN python -m venv /opt/venv && \
-    . /opt/venv/bin/activate && \
-    pip install --no-cache-dir -r requirements.txt
-
 # Install any needed dependencies specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -26,3 +22,19 @@ ENV NAME World
 
 # Run gunicorn when the container launches
 CMD ["gunicorn", "app:app", "-b", "0.0.0.0:80"]
+
+COPY requirements.txt .
+
+RUN python -m venv /opt/venv && \
+    . /opt/venv/bin/activate && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Add debugging statement
+RUN ls -l /opt/venv
+
+# Add more debugging statements as needed
+
+COPY . .
+
+CMD ["python", "your_script.py"]
+
