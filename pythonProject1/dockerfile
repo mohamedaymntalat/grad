@@ -7,9 +7,10 @@ WORKDIR /app
 # Copy the dependencies file to the working directory
 COPY requirements.txt .
 
-# Install any needed dependencies specified in requirements.txt
-RUN python -m venv /opt/venv && . /opt/venv/bin/activate && pip install -r requirements.txt
-
+# Upgrade pip and install any needed dependencies specified in requirements.txt
+RUN python -m pip install --upgrade pip && \
+    python -m venv /opt/venv && \
+    /opt/venv/bin/pip install -r requirements.txt
 
 # Copy the Flask application code to the container
 COPY . .
@@ -21,4 +22,4 @@ ENV FLASK_APP=app.py
 EXPOSE 5000
 
 # Run the Flask application
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["/opt/venv/bin/flask", "run", "--host=0.0.0.0"]
